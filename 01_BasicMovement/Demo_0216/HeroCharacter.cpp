@@ -27,7 +27,7 @@ AHeroCharacter::AHeroCharacter()
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	SpringArm->SetupAttachment(RootComponent);
-	SpringArm->TargetArmLength = 300.0f; // The camera follows at this distance behind the character	
+	SpringArm->TargetArmLength = 500.0f; // The camera follows at this distance behind the character	
 	SpringArm->bUsePawnControlRotation = true; // Rotate the arm based on the controller
 
 	// Create a follow camera
@@ -40,7 +40,8 @@ AHeroCharacter::AHeroCharacter()
 void AHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	SpringArm->TargetArmLength = 500.0f;
 }
 
 // Called every frame
