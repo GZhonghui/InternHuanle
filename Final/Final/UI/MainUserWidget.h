@@ -25,7 +25,12 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* AttackNumberTextBlock;
 
+	UPROPERTY(meta = (BindWidget))
+	class UTextBlock* MessageText;
+
 public:
 	void UpdateAttackNumer(int Value);
 	void UpdateAttackTime(float Value);
+
+	void LogMessage(const FString& Text);
 };

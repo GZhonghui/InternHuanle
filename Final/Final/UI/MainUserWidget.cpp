@@ -13,3 +13,8 @@ void UMainUserWidget::UpdateAttackTime(float Value)
 {
 	AttackTimeProgressBar->SetPercent(Value);
 }
+
+void UMainUserWidget::LogMessage(const FString& Text)
+{
+	MessageText->SetText(FText::FromString(Text));
+}

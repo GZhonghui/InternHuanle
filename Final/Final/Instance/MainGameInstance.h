@@ -13,5 +13,10 @@ UCLASS()
 class FINAL_API UMainGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
-	
+
+public:
+	virtual void Init() override;
+
+	TMap<int, FString> ItemsName;
+	TMap<int, FString> ItemsIconPath;
 };

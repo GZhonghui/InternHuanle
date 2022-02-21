@@ -17,6 +17,8 @@ void AMainPlayerController::BeginPlay()
 	MenuVisibility = false;
 
 	SetShowMouseCursor(true);
+
+	MainUI->LogMessage(TEXT("Game Started"));
 }
 
 void AMainPlayerController::SetupInputComponent()
@@ -57,11 +59,14 @@ void AMainPlayerController::TriggerInventory()
 		if (!InventoryUI) InventoryUI = CreateWidget<UInventoryUserWidget>(GetWorld(), InventoryUIClass);
 		InventoryUI->AddToViewport();
 
+		auto PlayerCharacter = Cast<AMainPlayerCharacter>(GetPawn());
+		if (PlayerCharacter) InventoryUI->UpdateItems(PlayerCharacter->Package->Items);
+
 		SetInputMode(FInputModeGameAndUI());
 	}
 	else
 	{
-		if(InventoryUI) InventoryUI->RemoveFromParent();
+		if (InventoryUI) InventoryUI->RemoveFromParent(), InventoryUI = nullptr;
 
 		SetInputMode(FInputModeGameOnly());
 	}

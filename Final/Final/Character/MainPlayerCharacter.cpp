@@ -15,6 +15,8 @@ AMainPlayerCharacter::AMainPlayerCharacter()
 	// Create a follow camera
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
+
+	Package = CreateDefaultSubobject<UPackageComponent>(TEXT("Package"));
 }
 
 // Called when the game starts or when spawned
@@ -46,6 +48,9 @@ void AMainPlayerCharacter::BeginPlay()
 	AttackTimeValue = 0;
 
 	LastAttack = FDateTime::Now();
+
+	auto Collider = Cast<UCapsuleComponent>(GetComponentByClass(UCapsuleComponent::StaticClass()));
+	if(Collider) Collider->OnComponentBeginOverlap.AddDynamic(this, &AMainPlayerCharacter::OnOverlapBegin);
 }
 
 // Called every frame
@@ -118,6 +123,14 @@ void AMainPlayerCharacter::Attack()
 		PlayAnimMontage(AttackAnims[WhichAttackState]);
 		WhichAttackState += 1;
 	}
+}
+
+void AMainPlayerCharacter::AttackPoint()
+{
+	// Calc Collision
+
+	LastAttack = FDateTime::Now();
+	AttackNumberValue = AttackNumberValue < 99 ? AttackNumberValue + 1 : 99;
 
 	FVector Start = this->GetActorLocation();
 	FVector End = this->GetActorLocation() + this->GetActorForwardVector() * 160;
@@ -127,17 +140,39 @@ void AMainPlayerCharacter::Attack()
 
 	UKismetSystemLibrary::SphereTraceMulti(this->GetWorld(), Start, End, 100, TraceTypeQuery1, true,
 		IngoreActors, EDrawDebugTrace::ForDuration, HitResult, true, FLinearColor::White, FLinearColor::Black, 10);
-}
 
-void AMainPlayerCharacter::AttackPoint()
-{
-	// Calc Collision
-
-	LastAttack = FDateTime::Now();
-	AttackNumberValue = AttackNumberValue < 99 ? AttackNumberValue + 1 : 99;
+	for (FHitResult Hit : HitResult)
+	{
+		if (Hit.Actor != nullptr && Hit.Actor.Get() != nullptr)
+		{
+			class ABasicEnemyCharacter* Enemy = Cast<ABasicEnemyCharacter>(Hit.Actor.Get());
+			if (Enemy)
+			{
+				Enemy->CauseDamage(30);
+			}
+		}
+	}
 }
 
 float AMainPlayerCharacter::GetSpeed()
 {
 	return GetCharacterMovement()->GetCurrentAcceleration().Size();
+}
+
+void AMainPlayerCharacter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if(OtherActor)
+	{
+		class AFloatingActor* ItemActor = Cast<AFloatingActor>(OtherActor);
+		if (ItemActor)
+		{
+			if(Package) Package->AddItem(ItemActor->ItemID);
+			ItemActor->Destroy();
+		}
+	}
+}
+
+void AMainPlayerCharacter::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	// None for now
 }

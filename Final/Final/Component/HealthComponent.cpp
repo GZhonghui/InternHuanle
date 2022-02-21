@@ -3,6 +3,8 @@
 
 #include "HealthComponent.h"
 
+#include "../UI/HPBarUserWidget.h"
+
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
 {
@@ -11,6 +13,11 @@ UHealthComponent::UHealthComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+
+	showHPBar = true;
+
+	static ConstructorHelpers::FClassFinder<UHPBarUserWidget> HPBarBPClass(TEXT("/Game/0_Main/UI/BP_HPBarUI.BP_HPBarUI_C"));
+	HPBarClass = HPBarBPClass.Class;
 }
 
 
@@ -35,4 +42,22 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 void UHealthComponent::ApplyHealthChange(float Value)
 {
 	Health = FMath::Clamp(Health + Value, 0.0f, HealthMax);
+
+	if (!HPBar)
+	{
+		HPBar = CreateWidget<UHPBarUserWidget>(GetWorld(), HPBarClass);
+		HPBar->AddToViewport();
+		HPBar->AttachedActor = GetOwner();
+	}
+
+	HPBar->HPProgressBar->SetPercent(Health / HealthMax);
+
+	if (Health < 1e-4)
+	{
+		auto ThisCharacter = GetOwner();
+		if (ThisCharacter)
+		{
+			ThisCharacter->Destroy();
+		}
+	}
 }

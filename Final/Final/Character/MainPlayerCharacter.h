@@ -10,12 +10,20 @@
 #include "Animation/AnimMontage.h"
 #include "Misc/DateTime.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Components/CapsuleComponent.h"
+
+#include "../Component/PackageComponent.h"
+
+#include "../Actor/FloatingActor.h"
+
+#include "BasicEnemyCharacter.h"
+
 #include "MainPlayerCharacter.generated.h"
 
 UCLASS()
 class FINAL_API AMainPlayerCharacter : public ACharacter
 {
-	GENERATED_BODY()
+	GENERATED_BODY()  
 
 public:
 	// Sets default values for this character's properties
@@ -66,4 +74,16 @@ public:
 public:
 	UFUNCTION(BlueprintCallable)
 	float GetSpeed();
+
+public:
+	class UPackageComponent* Package;
+
+public:
+	// declare overlap begin function
+	UFUNCTION()
+	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	// declare overlap end function
+	UFUNCTION()
+	void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 };

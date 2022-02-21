@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "HealthComponent.generated.h"
+#include "PackageComponent.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class FINAL_API UHealthComponent : public UActorComponent
+class FINAL_API UPackageComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UHealthComponent();
+	UPackageComponent();
 
 protected:
 	// Called when the game starts
@@ -24,11 +24,9 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-protected:
-	float Health;
-	float HealthMax;
+public:
+	TMap<int, int> Items;
 
 public:
-	UFUNCTION(BlueprintCallable)
-	void ApplyHealthChange(float Value);
+	void AddItem(int ItemID);
 };

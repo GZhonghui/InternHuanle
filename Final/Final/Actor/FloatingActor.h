@@ -26,6 +26,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+public:
+	UPROPERTY(EditAnywhere)
+	int ItemID;
+
 protected:
 	class UStaticMeshComponent* Mesh;
 

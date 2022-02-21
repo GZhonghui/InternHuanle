@@ -9,13 +9,13 @@ ABasicEnemyCharacter::ABasicEnemyCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("Health"));
 }
 
 // Called when the game starts or when spawned
 void ABasicEnemyCharacter::BeginPlay()
 {
-	Super::BeginPlay();
-	
+	Super::BeginPlay();	
 }
 
 // Called every frame
@@ -35,7 +35,10 @@ void ABasicEnemyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 
 void ABasicEnemyCharacter::CauseDamage(float Value)
 {
-	HealthComponent->ApplyHealthChange(-Value);
+	if (HealthComponent)
+	{
+		HealthComponent->ApplyHealthChange(-Value);
+	}
 
 	/*if (!HPBar)
 	{
