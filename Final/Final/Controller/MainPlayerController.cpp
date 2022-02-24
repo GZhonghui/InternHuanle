@@ -11,14 +11,17 @@ void AMainPlayerController::BeginPlay()
 	MainUI->AddToViewport();
 
 	InventoryUI = nullptr;
-	InventoryVisibility = false;
-
 	MenuUI = nullptr;
-	MenuVisibility = false;
 
 	SetShowMouseCursor(true);
 
 	MainUI->LogMessage(TEXT("Game Started"));
+
+	auto thisPlayer = Cast<AMainPlayerCharacter>(GetPawn());
+	if (thisPlayer)
+	{
+		thisPlayer->LogMyMessage.BindUObject(MainUI, &UMainUserWidget::LogMessage);
+	}
 }
 
 void AMainPlayerController::SetupInputComponent()
@@ -51,41 +54,35 @@ void AMainPlayerController::Tick(float DeltaTime)
 
 void AMainPlayerController::TriggerInventory()
 {
-	if (MenuVisibility) return;
+	InventoryUI = CreateWidget<UInventoryUserWidget>(GetWorld(), InventoryUIClass);
+	InventoryUI->AddToViewport();
 
-	InventoryVisibility = !InventoryVisibility;
-	if (InventoryVisibility)
-	{
-		if (!InventoryUI) InventoryUI = CreateWidget<UInventoryUserWidget>(GetWorld(), InventoryUIClass);
-		InventoryUI->AddToViewport();
+	auto PlayerCharacter = Cast<AMainPlayerCharacter>(GetPawn());
+	if (PlayerCharacter) InventoryUI->UpdateItems();
 
-		auto PlayerCharacter = Cast<AMainPlayerCharacter>(GetPawn());
-		if (PlayerCharacter) InventoryUI->UpdateItems(PlayerCharacter->Package->Items);
+	InventoryUI->bIsFocusable = true;
+	InventoryUI->SetFocus();
+	InventoryUI->SetKeyboardFocus();
 
-		SetInputMode(FInputModeGameAndUI());
-	}
-	else
-	{
-		if (InventoryUI) InventoryUI->RemoveFromParent(), InventoryUI = nullptr;
+	FInputModeUIOnly UIMode;
+	UIMode.SetWidgetToFocus(InventoryUI->TakeWidget());
 
-		SetInputMode(FInputModeGameOnly());
-	}
+	SetInputMode(UIMode);
 }
 
 void AMainPlayerController::TriggerMenu()
 {
-	MenuVisibility = !MenuVisibility;
-	if (MenuVisibility)
-	{
-		if (!MenuUI) MenuUI = CreateWidget<UMenuUserWidget>(GetWorld(), MenuUIClass);
-		MenuUI->AddToViewport();
+	MenuUI = CreateWidget<UMenuUserWidget>(GetWorld(), MenuUIClass);
+	MenuUI->AddToViewport();
 
-		SetInputMode(FInputModeGameAndUI());
-	}
-	else
-	{
-		if (MenuUI) MenuUI->RemoveFromParent();
+	MenuUI->bIsFocusable = true;
+	MenuUI->SetFocus();
+	MenuUI->SetKeyboardFocus();
 
-		SetInputMode(FInputModeGameOnly());
-	}
+	FInputModeUIOnly UIMode;
+	UIMode.SetWidgetToFocus(MenuUI->TakeWidget());
+
+	SetInputMode(UIMode);
+
+	SetPause(true);
 }

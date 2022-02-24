@@ -15,9 +15,6 @@ UHealthComponent::UHealthComponent()
 	// ...
 
 	showHPBar = true;
-
-	static ConstructorHelpers::FClassFinder<UHPBarUserWidget> HPBarBPClass(TEXT("/Game/0_Main/UI/BP_HPBarUI.BP_HPBarUI_C"));
-	HPBarClass = HPBarBPClass.Class;
 }
 
 
@@ -50,7 +47,7 @@ void UHealthComponent::ApplyHealthChange(float Value)
 		HPBar->AttachedActor = GetOwner();
 	}
 
-	HPBar->HPProgressBar->SetPercent(Health / HealthMax);
+	// HPBar->HPProgressBar->SetPercent(Health / HealthMax);
 
 	if (Health < 1e-4)
 	{

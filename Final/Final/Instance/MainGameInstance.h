@@ -19,4 +19,9 @@ public:
 
 	TMap<int, FString> ItemsName;
 	TMap<int, FString> ItemsIconPath;
+	TMap<int, int> ItemsUsage;
+	TMap<int, int> ItemsMaxNumberPerStack;
+
+	UPROPERTY(BlueprintReadWrite,EditAnywhere)
+	TMap<int, class TSubclassOf<AActor>> ItemsMesh;
 };

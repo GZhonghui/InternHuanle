@@ -13,12 +13,15 @@
 #include "Components/CapsuleComponent.h"
 
 #include "../Component/PackageComponent.h"
+#include "../Component/ArmsComponent.h"
 
 #include "../Actor/FloatingActor.h"
 
 #include "BasicEnemyCharacter.h"
 
 #include "MainPlayerCharacter.generated.h"
+
+DECLARE_DELEGATE_TwoParams(FLogAMessage, const FString&, float);
 
 UCLASS()
 class FINAL_API AMainPlayerCharacter : public ACharacter
@@ -42,7 +45,13 @@ public:
 
 	virtual void OnConstruction(const FTransform& Transform) override;
 
+public:
+	FLogAMessage LogMyMessage;
+
+public:
+	UPROPERTY(BlueprintReadWrite)
 	class USpringArmComponent* SpringArm;
+	UPROPERTY(BlueprintReadWrite)
 	class UCameraComponent* Camera;
 
 	UPROPERTY(EditAnywhere, Category = "Animation")

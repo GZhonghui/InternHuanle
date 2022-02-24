@@ -35,7 +35,6 @@ protected:
 	class UHealthComponent* HealthComponent;
 
 public:
-	
 	UPROPERTY(EditAnywhere)
 	class TSubclassOf<UHPBarUserWidget> HPBarClass;
 	class UHPBarUserWidget* HPBar;

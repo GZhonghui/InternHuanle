@@ -16,6 +16,8 @@ ABasicEnemyCharacter::ABasicEnemyCharacter()
 void ABasicEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();	
+
+	HealthComponent->HPBarClass = HPBarClass;
 }
 
 // Called every frame
@@ -29,7 +31,6 @@ void ABasicEnemyCharacter::Tick(float DeltaTime)
 void ABasicEnemyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 
 
@@ -39,11 +40,5 @@ void ABasicEnemyCharacter::CauseDamage(float Value)
 	{
 		HealthComponent->ApplyHealthChange(-Value);
 	}
-
-	/*if (!HPBar)
-	{
-		// HPBar = CreateWidget<UHPBarUserWidget>(GetWorld(), HPBarClass);
-		// HPBar->AddToViewport();
-	}*/
 }
 

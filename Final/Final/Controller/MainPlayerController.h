@@ -41,9 +41,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 protected:
-	bool InventoryVisibility;
 	void TriggerInventory();
 
-	bool MenuVisibility;
 	void TriggerMenu();
 };

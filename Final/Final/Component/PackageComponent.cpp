@@ -20,6 +20,12 @@ void UPackageComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
+
+	for (int i = 1; i <= MaxStack; ++i)
+	{
+		StackID.Emplace(i, 0);
+		StackNumber.Emplace(i, 0);
+	}
 	
 }
 
@@ -32,11 +38,31 @@ void UPackageComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	// ...
 }
 
-void UPackageComponent::AddItem(int ItemID)
+bool UPackageComponent::AddItem(int ItemID, int Count)
 {
-	if (!Items.Contains(ItemID))
+	int FirstEmpty = 0;
+
+	for (int i = 1; i <= MaxStack; ++i)
 	{
-		Items.Emplace(ItemID, 0);
+		if (StackID[i] == ItemID && StackNumber[i])
+		{
+			StackNumber[i] += Count;
+			return true;
+		}
+
+		if (!FirstEmpty && StackNumber[i] == 0)
+		{
+			FirstEmpty = i;
+		}
 	}
-	Items[ItemID] += 1;
+
+	if (FirstEmpty)
+	{
+		StackID[FirstEmpty] = ItemID;
+		StackNumber[FirstEmpty] = Count;
+
+		return true;
+	}
+
+	return false;
 }

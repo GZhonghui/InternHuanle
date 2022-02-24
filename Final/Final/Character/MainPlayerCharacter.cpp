@@ -24,13 +24,13 @@ void AMainPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SpringArm->TargetArmLength = 480;
+	SpringArm->TargetArmLength = 880;
 	SpringArm->bUsePawnControlRotation = false;
 	SpringArm->bInheritPitch = false;
 	SpringArm->bInheritYaw = false;
 	SpringArm->bInheritRoll = false;
 
-	Camera->SetRelativeLocation(FVector(-80, 0, 840));
+	Camera->SetRelativeLocation(FVector(-80, 0, 1440));
 	Camera->SetRelativeRotation(FRotator(-60, 0, 0));
 
 	bUseControllerRotationPitch = false;
@@ -148,7 +148,7 @@ void AMainPlayerCharacter::AttackPoint()
 			class ABasicEnemyCharacter* Enemy = Cast<ABasicEnemyCharacter>(Hit.Actor.Get());
 			if (Enemy)
 			{
-				Enemy->CauseDamage(30);
+				Enemy->CauseDamage(10 + AttackNumberValue);
 			}
 		}
 	}
@@ -166,7 +166,12 @@ void AMainPlayerCharacter::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 		class AFloatingActor* ItemActor = Cast<AFloatingActor>(OtherActor);
 		if (ItemActor)
 		{
-			if(Package) Package->AddItem(ItemActor->ItemID);
+			if (Package) Package->AddItem(ItemActor->ItemID, 1);
+			
+			const TMap<int, FString>& Names = Cast<UMainGameInstance>(GetGameInstance())->ItemsName;
+			FString Message = FString::Printf(TEXT("You Pick a [%s]"), *Names[ItemActor->ItemID]);
+			LogMyMessage.ExecuteIfBound(Message, 5.0f);
+
 			ItemActor->Destroy();
 		}
 	}

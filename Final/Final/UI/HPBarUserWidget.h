@@ -23,7 +23,7 @@ class FINAL_API UHPBarUserWidget : public UUserWidget
 public:
 	AActor* AttachedActor;
 
-	UPROPERTY(meta = (BindWidget))
+	// UPROPERTY(meta = (BindWidget))
 	class UProgressBar* HPProgressBar;
 
 protected:

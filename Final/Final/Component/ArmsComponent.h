@@ -4,20 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-
-#include "../Instance/MainGameInstance.h"
-
-#include "PackageComponent.generated.h"
+#include "ArmsComponent.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class FINAL_API UPackageComponent : public UActorComponent
+class FINAL_API UArmsComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UPackageComponent();
+	UArmsComponent();
 
 protected:
 	// Called when the game starts
@@ -28,12 +25,5 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 public:
-	const int MaxStack = 12;
-
-public:
-	TMap<int, int> StackID;
-	TMap<int, int> StackNumber;
-
-public:
-	bool AddItem(int ItemID, int Count);
+	TMap<int, int> EquippedArms;
 };

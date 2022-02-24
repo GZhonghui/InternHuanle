@@ -3,54 +3,122 @@
 
 #include "InventoryUserWidget.h"
 
-void UInventoryUserWidget::UpdateItems(const TMap<int, int>& Items)
+void UInventoryUserWidget::UpdateItems()
 {
-	 FString Content;
-
-	 const TMap<int, FString>& Names = Cast<UMainGameInstance>(GetGameInstance())->ItemsName;
-
-	 int Index = 0;
-
-	for (auto& Item : Items)
+	auto Package = Cast<UPackageComponent>(GetOwningPlayer()->GetPawn()->GetComponentByClass(UPackageComponent::StaticClass()));
+	if (Package)
 	{
-		if (Names.Contains(Item.Key))
+		for (int i = 1; i <= Package->MaxStack; i += 1)
 		{
-			auto NewLine = FString("Item: ") + Names[Item.Key] +
-				FString(", Count: ") + FString::FromInt(Item.Value) + FString("\n");
-			Content += NewLine;
+			if (Package->StackNumber[i])
+			{
+				Set(i, Package->StackID[i], Package->StackNumber[i]);
+			}
+			else
+			{
+				Set(i, 0, 0);
+			}
+		}
 
-			Set(++Index, Item.Key, Item.Value);
-		}	
+		// HARD CODE
+
+		class UArmsUserWidget* ArmsItems[]
+		{
+			nullptr,
+			Arms_01, Arms_02, Arms_03
+		};
+		for (int i = 1; i <= 3; i += 1)
+		{
+			ArmsItems[i]->UpdateWithSelf();
+		}
 	}
+}
 
-	AllText->SetText(FText::FromString(Content));
+void UInventoryUserWidget::UpdateBack()
+{
+	auto Package = Cast<UPackageComponent>(GetOwningPlayer()->GetPawn()->GetComponentByClass(UPackageComponent::StaticClass()));
+
+	class UItemUserWidget* Items[]
+	{
+		nullptr,
+		Item_01, Item_02, Item_03, Item_04, Item_05,
+		Item_06, Item_07, Item_08, Item_09, Item_10,
+		Item_11, Item_12
+	};
+
+	if (Package)
+	{
+		for (int i = 1; i <= 12; i += 1) // HARD CODE
+		{
+			Package->StackID[i] = Items[i]->SaveID;
+			Package->StackNumber[i] = Items[i]->SaveNumber;
+		}
+
+		UpdateItems();
+	}
 }
 
 void UInventoryUserWidget::Set(int Index, int ItemID, int Count)
 {
-	if (Index <= 0 || Index >= 11) return;
-
-	const TMap<int, FString>& IconPath = Cast<UMainGameInstance>(GetGameInstance())->ItemsIconPath;
-	
-	if (!IconPath.Contains(ItemID)) return;
-
-	FString ImagePath = IconPath[ItemID];
-	UTexture2D* Texture = Cast<UTexture2D>(StaticLoadObject(UTexture2D::StaticClass(), NULL, *(ImagePath)));
-
-	class UImage* PickupIcons[11] =
+	class UItemUserWidget* Items[]
 	{
 		nullptr,
-		Pickup_01, Pickup_02, Pickup_03, Pickup_04, Pickup_05,
-		Pickup_06, Pickup_07, Pickup_08, Pickup_09, Pickup_10
+		Item_01, Item_02, Item_03, Item_04, Item_05,
+		Item_06, Item_07, Item_08, Item_09, Item_10,
+		Item_11, Item_12
 	};
 
-	class UTextBlock* PickupNumbers[11] =
+	if (Index <= 0 || Index >= 13) return; // HARD CODE
+
+	Items[Index]->Set(ItemID, Count);
+}
+
+void UInventoryUserWidget::WearNewArms(int ItemID)
+{
+	Arms_01->SetNewArms(ItemID);
+}
+
+bool UInventoryUserWidget::Initialize()
+{
+	if (!Super::Initialize()) return false;
+
+	class UItemUserWidget* Items[]
 	{
 		nullptr,
-		Number_01, Number_02, Number_03, Number_04, Number_05,
-		Number_06, Number_07, Number_08, Number_09, Number_10
+		Item_01, Item_02, Item_03, Item_04, Item_05,
+		Item_06, Item_07, Item_08, Item_09, Item_10,
+		Item_11, Item_12
 	};
 
-	PickupIcons[Index]->SetBrushFromTexture(Texture);
-	PickupNumbers[Index]->SetText(FText::FromString(FString::FromInt(Count)));
+	for (int i = 1; i <= 12; i += 1) //HARD CODE
+	{
+		Items[i]->MeUpdated.BindUObject(this, &UInventoryUserWidget::UpdateBack);
+		Items[i]->WearMe.BindUObject(this, &UInventoryUserWidget::WearNewArms);
+	}
+
+	return true;
+}
+
+FReply UInventoryUserWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
+{
+	Super::NativeOnKeyDown(InGeometry, InKeyEvent);
+
+	if (InKeyEvent.GetKey() == FKey("X"))
+	{
+		auto PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		if (PlayerController)
+		{
+			PlayerController->SetInputMode(FInputModeGameOnly());
+		}
+
+		RemoveFromParent();
+	}
+
+	return FReply::Handled();
+}
+
+void UInventoryUserWidget::NativeOnFocusLost(const FFocusEvent& InFocusEvent)
+{
+	SetFocus();
+	SetKeyboardFocus();
 }

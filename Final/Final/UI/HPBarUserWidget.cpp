@@ -22,6 +22,7 @@ void UHPBarUserWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime
 		if (HPProgressBar)
 		{
 			HPProgressBar->SetRenderTranslation(ScreenPosition);
+			
 		}
 	}
 }
