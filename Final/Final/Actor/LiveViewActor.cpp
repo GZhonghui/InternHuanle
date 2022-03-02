@@ -22,6 +22,5 @@ void ALiveViewActor::BeginPlay()
 void ALiveViewActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 

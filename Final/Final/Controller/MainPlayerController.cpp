@@ -22,6 +22,8 @@ void AMainPlayerController::BeginPlay()
 	{
 		thisPlayer->LogMyMessage.BindUObject(MainUI, &UMainUserWidget::LogMessage);
 	}
+
+	bEnableMouseOverEvents = true;
 }
 
 void AMainPlayerController::SetupInputComponent()
@@ -30,6 +32,12 @@ void AMainPlayerController::SetupInputComponent()
 
 	InputComponent->BindAction("Inventory", IE_Pressed, this, &AMainPlayerController::TriggerInventory);
 	InputComponent->BindAction("Menu", IE_Pressed, this, &AMainPlayerController::TriggerMenu);
+	InputComponent->BindAction("SkillTree", IE_Pressed, this, &AMainPlayerController::TriggerSkillTree);
+
+	InputComponent->BindAction("SkillQ", IE_Pressed, this, &AMainPlayerController::UseSkillQ);
+	InputComponent->BindAction("SkillE", IE_Pressed, this, &AMainPlayerController::UseSkillE);
+	InputComponent->BindAction("SkillR", IE_Pressed, this, &AMainPlayerController::UseSkillR);
+	InputComponent->BindAction("SkillF", IE_Pressed, this, &AMainPlayerController::UseSkillF);
 }
 
 void AMainPlayerController::Tick(float DeltaTime)
@@ -49,6 +57,42 @@ void AMainPlayerController::Tick(float DeltaTime)
 			MainUI->UpdateAttackNumer(0);
 			MainUI->UpdateAttackTime(0);
 		}
+	}
+}
+
+void AMainPlayerController::UseSkillQ()
+{
+	if (MainUI && MainUI->Skill_Q)
+	{
+		MainUI->Skill_Q->Use();
+		MainUI->LogMessage(TEXT("Q!"));
+	}
+}
+
+void AMainPlayerController::UseSkillE()
+{
+	if (MainUI && MainUI->Skill_E)
+	{
+		MainUI->Skill_E->Use();
+		MainUI->LogMessage(TEXT("E!"));
+	}
+}
+
+void AMainPlayerController::UseSkillR()
+{
+	if (MainUI && MainUI->Skill_R)
+	{
+		MainUI->Skill_R->Use();
+		MainUI->LogMessage(TEXT("R!"));
+	}
+}
+
+void AMainPlayerController::UseSkillF()
+{
+	if (MainUI && MainUI->Skill_F)
+	{
+		MainUI->Skill_F->Use();
+		MainUI->LogMessage(TEXT("F!"));
 	}
 }
 
@@ -85,4 +129,19 @@ void AMainPlayerController::TriggerMenu()
 	SetInputMode(UIMode);
 
 	SetPause(true);
+}
+
+void AMainPlayerController::TriggerSkillTree()
+{
+	SkillTreeUI = CreateWidget<USkillTreeUserWidget>(GetWorld(), SkillTreeUIClass);
+	SkillTreeUI->AddToViewport();
+
+	SkillTreeUI->bIsFocusable = true;
+	SkillTreeUI->SetFocus();
+	SkillTreeUI->SetKeyboardFocus();
+
+	FInputModeUIOnly UIMode;
+	UIMode.SetWidgetToFocus(SkillTreeUI->TakeWidget());
+
+	SetInputMode(UIMode);
 }

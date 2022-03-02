@@ -83,68 +83,17 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	class UArmsUserWidget* Arms_03;
 
+	UPROPERTY(meta = (BindWidget))
+	class UTextBlock* CoinText;
+
+	UPROPERTY(meta = (BindWidget))
+	class UTextBlock* DiamondText;
+
+public:
+	void UpdateCoin(int Value);
+	void UpdateDiamond(int Value);
+
 public:
 	virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
 	virtual void NativeOnFocusLost(const FFocusEvent& InFocusEvent) override;
-	/*
-	UPROPERTY(meta = (BindWidget))
-	class UImage* Pickup_01;
-
-	UPROPERTY(meta = (BindWidget))
-	class UImage* Pickup_02;
-
-	UPROPERTY(meta = (BindWidget))
-	class UImage* Pickup_03;
-
-	UPROPERTY(meta = (BindWidget))
-	class UImage* Pickup_04;
-
-	UPROPERTY(meta = (BindWidget))
-	class UImage* Pickup_05;
-
-	UPROPERTY(meta = (BindWidget))
-	class UImage* Pickup_06;
-
-	UPROPERTY(meta = (BindWidget))
-	class UImage* Pickup_07;
-
-	UPROPERTY(meta = (BindWidget))
-	class UImage* Pickup_08;
-
-	UPROPERTY(meta = (BindWidget))
-	class UImage* Pickup_09;
-
-	UPROPERTY(meta = (BindWidget))
-	class UImage* Pickup_10;
-
-	UPROPERTY(meta = (BindWidget))
-	class UTextBlock* Number_01;
-
-	UPROPERTY(meta = (BindWidget))
-	class UTextBlock* Number_02;
-
-	UPROPERTY(meta = (BindWidget))
-	class UTextBlock* Number_03;
-
-	UPROPERTY(meta = (BindWidget))
-	class UTextBlock* Number_04;
-
-	UPROPERTY(meta = (BindWidget))
-	class UTextBlock* Number_05;
-
-	UPROPERTY(meta = (BindWidget))
-	class UTextBlock* Number_06;
-
-	UPROPERTY(meta = (BindWidget))
-	class UTextBlock* Number_07;
-
-	UPROPERTY(meta = (BindWidget))
-	class UTextBlock* Number_08;
-
-	UPROPERTY(meta = (BindWidget))
-	class UTextBlock* Number_09;
-
-	UPROPERTY(meta = (BindWidget))
-	class UTextBlock* Number_10;
-	*/
 };

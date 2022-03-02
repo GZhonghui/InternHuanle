@@ -66,6 +66,19 @@ void UMainUserWidget::LogMessage(const FString& Text, float Time)
 	MessageRemainTime = Time;
 }
 
+bool UMainUserWidget::Initialize()
+{
+	if (!Super::Initialize()) return false;
+
+	// HARD CODE
+	if (Skill_Q) Skill_Q->SetSkill(1);
+	if (Skill_E) Skill_E->SetSkill(2);
+	if (Skill_R) Skill_R->SetSkill(3);
+	if (Skill_F) Skill_F->SetSkill(4);
+
+	return true;
+}
+
 void UMainUserWidget::NativeTick(const FGeometry& MyGeometry, float DeltaTime)
 {
 	Super::NativeTick(MyGeometry, DeltaTime);

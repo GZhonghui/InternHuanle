@@ -41,4 +41,3 @@ void ABasicEnemyCharacter::CauseDamage(float Value)
 		HealthComponent->ApplyHealthChange(-Value);
 	}
 }
-

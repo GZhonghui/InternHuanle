@@ -8,6 +8,7 @@
 #include "../UI/MainUserWidget.h"
 #include "../UI/InventoryUserWidget.h"
 #include "../UI/MenuUserWidget.h"
+#include "../UI/SkillTreeUserWidget.h"
 
 #include "../Character/MainPlayerCharacter.h"
 
@@ -34,14 +35,26 @@ public:
 	class TSubclassOf<UMenuUserWidget> MenuUIClass;
 	class UMenuUserWidget* MenuUI;
 
+	UPROPERTY(EditAnywhere)
+	class TSubclassOf<USkillTreeUserWidget> SkillTreeUIClass;
+	class USkillTreeUserWidget* SkillTreeUI;
+
 	virtual void BeginPlay() override;
 
 	virtual void SetupInputComponent() override;
 
 	virtual void Tick(float DeltaTime) override;
 
+public:
+	void UseSkillQ();
+	void UseSkillE();
+	void UseSkillR();
+	void UseSkillF();
+
 protected:
 	void TriggerInventory();
 
 	void TriggerMenu();
+
+	void TriggerSkillTree();
 };

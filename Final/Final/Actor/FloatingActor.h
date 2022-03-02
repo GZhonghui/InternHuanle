@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 
 #include "Components/StaticMeshComponent.h"
+#include "Animation/AnimInstance.h"
 
 #include "FloatingActor.generated.h"
 

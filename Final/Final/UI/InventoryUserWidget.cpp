@@ -99,6 +99,22 @@ bool UInventoryUserWidget::Initialize()
 	return true;
 }
 
+void UInventoryUserWidget::UpdateCoin(int Value)
+{
+	if (CoinText)
+	{
+		CoinText->SetText(FText::FromString(FString::Printf(TEXT("Coin: %d"), Value)));
+	}
+}
+
+void UInventoryUserWidget::UpdateDiamond(int Value)
+{
+	if (DiamondText)
+	{
+		DiamondText->SetText(FText::FromString(FString::Printf(TEXT("Diamond: %d"), Value)));
+	}
+}
+
 FReply UInventoryUserWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
 {
 	Super::NativeOnKeyDown(InGeometry, InKeyEvent);

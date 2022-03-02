@@ -17,6 +17,8 @@ class FINAL_API UMainGameInstance : public UGameInstance
 public:
 	virtual void Init() override;
 
+// Items
+public:
 	TMap<int, FString> ItemsName;
 	TMap<int, FString> ItemsIconPath;
 	TMap<int, int> ItemsUsage;
@@ -24,4 +26,14 @@ public:
 
 	UPROPERTY(BlueprintReadWrite,EditAnywhere)
 	TMap<int, class TSubclassOf<AActor>> ItemsMesh;
+
+// Skills
+public:
+	TMap<int, FString> SkillsName;
+	TMap<int, FString> SkillsIconPath;
+	TMap<int, FString> SkillsVideoPath;
+	TMap<int, float> SkillsCoolTime;
+	TMap<int, int> SkillsNeedCoin;
+	TMap<int, int> SkillsNeedDiamond;
+	TMap<int, TSet<int>> SkillsNeedOtherSkills;
 };
