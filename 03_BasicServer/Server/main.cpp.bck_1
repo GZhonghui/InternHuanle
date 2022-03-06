@@ -22,43 +22,44 @@
 #define IMPORT_USER
 #include "User.h"
 
-const int MaxClient = 128;
-int fd[MaxClient];
+int fd[4];
 
-uint8_t Buffer[MaxClient][40960];
+uint8_t Buffer[4][40960];
 
-uint32_t Size[MaxClient];
-uint32_t MessageType[MaxClient];
-uint32_t MessageLen[MaxClient];
+uint32_t Size[4];
+uint32_t MessageType[4];
+uint32_t MessageLen[4];
 
 uint32_t NowPlayerID = 0;
-uint32_t PlayerID[MaxClient];
+uint32_t PlayerID[4];
 
-int i = 0, maxi = 0;
+struct epoll_event event;
+struct epoll_event wait_events[16];
 
 inline void Init()
 {
     InitUserInfo();
 
-    memset(Size, sizeof(Size), 0);
-    memset(MessageType, sizeof(MessageType), 0);
-    memset(MessageLen, sizeof(MessageLen), 0);
+    memset(fd, -1, sizeof(fd));
 
-    memset(PlayerID, sizeof(PlayerID), 0);
+    memset(Size, 0, sizeof(Size));
+    memset(MessageType, 0, sizeof(MessageType));
+    memset(MessageLen, 0, sizeof(MessageLen));
+
+    memset(PlayerID, 0, sizeof(PlayerID));
 
     puts("Init Done");
 }
 
 inline void SendAll(int i, uint32_t SumLen)
 {
-    for(int j=1; j<=maxi; j+=1)
+    if(fd[1] >= 0)
     {
-        if(fd[j] < 0)
-        {
-            continue;
-        }
-
-        send(fd[j], Buffer[i], SumLen, 0); // DANGER
+        auto SendLen = send(fd[1], Buffer[i], SumLen, 0);
+    }
+    if(fd[2] >= 0)
+    {
+        auto SendLen = send(fd[2], Buffer[i], SumLen, 0);
     }
 }
 
@@ -70,10 +71,6 @@ inline void ProcessEvent(int i)
     {
         PLoginRequest LoginRequest;
         LoginRequest.ParseFromArray(Buffer[i], Size[i]);
-
-        puts("Login Request:");
-        printf("%s\n",LoginRequest.username().c_str());
-        printf("%s\n",LoginRequest.password().c_str());
 
         if(UserLoginInfo.count(LoginRequest.username()) &&
             UserLoginInfo[LoginRequest.username()] == LoginRequest.password())
@@ -106,7 +103,7 @@ inline void ProcessEvent(int i)
             memcpy(Buffer[i] + 4, &SingleMessageLen, 4);
             GameBegin.SerializeToArray(Buffer[i] + 8, SingleMessageLen);
 
-            if(NowPlayerID == 2) // HARD CODE
+            if(NowPlayerID >= 2) // HARD CODE
             {
                 SendAll(i, SingleMessageLen + 8);
             }
@@ -202,27 +199,64 @@ inline void ProcessEvent(int i)
     }
 }
 
+inline void Recv(int i, const epoll_event& wait_event)
+{
+    if(fd[i] < 0) return;
+
+    if((fd[i] == wait_event.data.fd) && (EPOLLIN == wait_event.events & EPOLLIN))
+    {
+        int len = 0;
+
+        if(!MessageType[i])
+        {
+            len = recv(fd[i], Buffer[i]+Size[i], 4-Size[i], 0);
+            Size[i] += len;
+            if(Size[i] >= 4)
+            {
+                memcpy(&MessageType[i], Buffer[i], 4);
+                Size[i] = 0;
+            }
+        }else if(!MessageLen[i])
+        {
+            len = recv(fd[i], Buffer[i]+Size[i], 4-Size[i], 0);
+            Size[i] += len;
+            if(Size[i] >= 4)
+            {
+                memcpy(&MessageLen[i], Buffer[i], 4);
+                Size[i] = 0;
+            }
+        }else
+        {
+            len = recv(fd[i], Buffer[i]+Size[i], MessageLen[i]-Size[i], 0);
+            Size[i] += len;
+            if(Size[i] >= MessageLen[i])
+            {
+                ProcessEvent(i);
+
+                MessageType[i] = 0;
+                MessageLen[i] = 0;
+
+                Size[i] = 0;
+            }
+        }
+    }
+}
+
 int main()
 {
     Init();
-
-    struct epoll_event event;
-    struct epoll_event wait_event;
 
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
     struct sockaddr_in my_addr;
     bzero(&my_addr, sizeof(my_addr));
     my_addr.sin_family = AF_INET;
-    my_addr.sin_port = htons(3000);
+    my_addr.sin_port = htons(3002);
     my_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     bind(sockfd, (struct sockaddr *)&my_addr, sizeof(my_addr));
 
     listen(sockfd, 10);
 
-    puts("Server Start");
-
-    memset(fd, -1, sizeof(fd));
     fd[0] = sockfd;
 
     int epfd = epoll_create(10);
@@ -236,6 +270,7 @@ int main()
     event.events = EPOLLIN;
 
     int ret = epoll_ctl(epfd, EPOLL_CTL_ADD, sockfd, &event);
+
     if(-1 == ret)
     {
         puts("error in adding server");
@@ -244,97 +279,27 @@ int main()
 
     while(true)
     {
-        ret = epoll_wait(epfd, &wait_event, maxi + 1, -1); 
-		if(ret == 0){
-            printf("time out\n");
-            continue;
-		}
-        else if(ret == -1){
-            printf("epoll");
-            exit(2);
-		}
+        ret = epoll_wait(epfd, wait_events, 3, -1);
 
-        if((sockfd == wait_event.data.fd) && (EPOLLIN == wait_event.events & EPOLLIN))
+        for(int i=0; i<ret; i+=1)
         {
-            struct sockaddr_in cli_addr;
-            unsigned int clilen = sizeof(cli_addr);
+            const epoll_event& wait_event = wait_events[i];
 
-            int connfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
-
-            for(i=1; i<MaxClient; i+=1)
+            if((sockfd == wait_event.data.fd) && (EPOLLIN == wait_event.events & EPOLLIN))
             {
-                if(fd[i] < 0)
-                {
-                    fd[i] = connfd;
-                    event.data.fd = connfd;
-                    event.events = EPOLLIN;
+                struct sockaddr_in cli_addr;
+                unsigned int clilen = sizeof(cli_addr);
 
-                    ret = epoll_ctl(epfd, EPOLL_CTL_ADD, connfd, &event);
-                    if(-1 == ret)
-                    {
-                        puts("error in adding client");
-                        return -1;
-                    }
-                    else
-                    {
-                        puts("new client connection");
-                    }
+                int connfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
 
-                    break;
-                }
+                fd[fd[1] < 0 ? 1 : 2] = connfd;
+
+                event.data.fd = connfd;
+                event.events = EPOLLIN;
+                epoll_ctl(epfd, EPOLL_CTL_ADD, connfd, &event);
             }
-
-            if(i > maxi) maxi = i;
-
-            if(--ret <= 0) continue;
-        }
-
-        for(i=1; i<=maxi; i+=1)
-        {
-            if(fd[i] < 0)
-            {
-                continue;
-            }
-
-            if((fd[i] == wait_event.data.fd) && (EPOLLIN == wait_event.events & EPOLLIN))
-            {
-                int len = 0;
-
-                if(!MessageType[i])
-                {
-                    len = recv(fd[i], Buffer[i]+Size[i], 4-Size[i], 0);
-                    Size[i] += len;
-                    if(Size[i] >= 4)
-                    {
-                        memcpy(&MessageType[i], Buffer[i], 4);
-                        Size[i] = 0;
-                    }
-                }else if(!MessageLen[i])
-                {
-                    len = recv(fd[i], Buffer[i]+Size[i], 4-Size[i], 0);
-                    Size[i] += len;
-                    if(Size[i] >= 4)
-                    {
-                        memcpy(&MessageLen[i], Buffer[i], 4);
-                        Size[i] = 0;
-                    }
-                }else
-                {
-                    len = recv(fd[i], Buffer[i]+Size[i], MessageLen[i]-Size[i], 0);
-                    Size[i] += len;
-                    if(Size[i] >= MessageLen[i])
-                    {
-                        ProcessEvent(i);
-
-                        MessageType[i] = 0;
-                        MessageLen[i] = 0;
-
-                        Size[i] = 0;
-                    }
-                }
-
-                if(--ret <= 0 ) break;
-            }
+            Recv(1, wait_event);
+            Recv(2, wait_event);
         }
     }
 
