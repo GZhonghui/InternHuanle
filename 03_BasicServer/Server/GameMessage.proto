@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+message PLoginRequest
+{
+    string UserName = 1;
+    string Password = 2;
+}
+
+message PLoginRespond
+{
+    uint32 AllowLogin = 1;
+    uint32 PlayerNumber = 2;
+    uint32 SelfID = 3;
+}
+
+message PActionRequest
+{
+    uint32 ActionType = 1;
+}
+
+message PPlayerAction
+{
+    uint32 PlayerID = 1;
+    uint32 ActionType = 2;
+}
+
+message PMoveRequest
+{
+    uint32 MoveType = 1;
+    float MoveValue = 2;
+}
+
+message PPlayerMove
+{
+    uint32 PlayerID = 1;
+    uint32 MoveType = 2;
+    float MoveValue = 3;
+}
+
+message PTurnRequest
+{
+    uint32 TurnType = 1;
+    float TurnValue = 2;
+}
+
+message PPlayerTurn
+{
+    uint32 PlayerID = 1;
+    uint32 TurnType = 2;
+    float TurnValue = 3;
+}
+
+message PGameBegin
+{
+    uint32 SelfID = 1;
+}
