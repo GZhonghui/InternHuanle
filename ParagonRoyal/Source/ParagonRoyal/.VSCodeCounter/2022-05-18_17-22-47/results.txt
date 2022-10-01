@@ -1,0 +1,151 @@
+Date : 2022-05-18 17:22:47
+Directory : c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal
+Total : 116 files,  18367 codes, 2150 comments, 4140 blanks, all 24657 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| C++              |        114 |     18,154 |      2,144 |      4,093 |     24,391 |
+| Protocol Buffers |          1 |        200 |          0 |         37 |        237 |
+| C#               |          1 |         13 |          6 |         10 |         29 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                              | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                 |        116 |     18,367 |      2,150 |      4,140 |     24,657 |
+| Actor                                                                                             |         56 |      1,338 |        220 |        581 |      2,139 |
+| Anim                                                                                              |         12 |        111 |         32 |         68 |        211 |
+| Character                                                                                         |         10 |      2,262 |        130 |        565 |      2,957 |
+| Component                                                                                         |          2 |        108 |         14 |         34 |        156 |
+| Controller                                                                                        |          2 |        497 |         85 |        117 |        699 |
+| Instance                                                                                          |          2 |        902 |        177 |        220 |      1,299 |
+| Mode                                                                                              |          4 |        218 |         33 |         71 |        322 |
+| PB                                                                                                |          3 |     11,015 |      1,368 |      1,953 |     14,336 |
+| UI                                                                                                |         22 |      1,898 |         83 |        514 |      2,495 |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                                          | language         | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorBase.cpp                | C++              |         24 |          5 |         11 |         40 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorBase.h                  | C++              |         29 |          4 |         16 |         49 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorPoison.cpp              | C++              |         26 |          2 |         10 |         38 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorPoison.h                | C++              |         22 |          4 |         12 |         38 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectile.cpp          | C++              |         30 |         10 |         11 |         51 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectile.h            | C++              |         23 |          6 |         12 |         41 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileAuroraRM.cpp  | C++              |         26 |          1 |         12 |         39 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileAuroraRM.h    | C++              |         20 |          6 |         10 |         36 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileGruxE.cpp     | C++              |         22 |          1 |         10 |         33 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileGruxE.h       | C++              |         20 |          6 |          9 |         35 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileGruxRM.cpp    | C++              |         26 |          1 |         11 |         38 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileGruxRM.h      | C++              |         20 |          6 |          9 |         35 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileGruxSP.cpp    | C++              |         42 |          1 |         17 |         60 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileGruxSP.h      | C++              |         24 |          6 |         12 |         42 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileSparrowLM.cpp | C++              |         26 |          1 |         11 |         38 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileSparrowLM.h   | C++              |         20 |          6 |          9 |         35 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileSparrowRM.cpp | C++              |         26 |          1 |         11 |         38 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorProjectileSparrowRM.h   | C++              |         20 |          6 |          9 |         35 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStatic.cpp              | C++              |         16 |          1 |          7 |         24 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStatic.h                | C++              |         17 |          6 |          9 |         32 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticAttack.cpp        | C++              |         11 |          1 |          6 |         18 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticAttack.h          | C++              |         13 |          4 |          6 |         23 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticAuroraE.cpp       | C++              |         18 |          1 |          7 |         26 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticAuroraE.h         | C++              |         17 |          6 |          7 |         30 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticAuroraQ.cpp       | C++              |         74 |          1 |         20 |         95 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticAuroraQ.h         | C++              |         30 |          6 |         15 |         51 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticAuroraQIce.cpp    | C++              |         10 |          1 |          5 |         16 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticAuroraQIce.h      | C++              |         13 |          4 |          5 |         22 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticAuroraSP.cpp      | C++              |         21 |          1 |          7 |         29 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticAuroraSP.h        | C++              |         21 |          6 |         11 |         38 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticFengMaoE.cpp      | C++              |         28 |          1 |          8 |         37 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticFengMaoE.h        | C++              |         19 |          6 |          9 |         34 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticFengMaoQ.cpp      | C++              |         35 |          1 |         11 |         47 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticFengMaoQ.h        | C++              |         21 |          6 |         11 |         38 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticFengMaoRM.cpp     | C++              |         33 |          1 |         14 |         48 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticFengMaoRM.h       | C++              |         19 |          6 |          9 |         34 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticGruxE.cpp         | C++              |         46 |          1 |         13 |         60 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticGruxE.h           | C++              |         24 |          6 |         13 |         43 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticGruxQ.cpp         | C++              |         29 |          1 |         10 |         40 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticGruxQ.h           | C++              |         21 |          6 |         11 |         38 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticSparrowE.cpp      | C++              |         41 |          1 |         15 |         57 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticSparrowE.h        | C++              |         23 |          3 |         11 |         37 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticSparrowQ.cpp      | C++              |         20 |          1 |          8 |         29 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticSparrowQ.h        | C++              |         15 |          4 |          7 |         26 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticSparrowSP.cpp     | C++              |         24 |          1 |          9 |         34 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\DamageActorStaticSparrowSP.h       | C++              |         15 |          4 |          7 |         26 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\HeroPreviewActor.cpp               | C++              |         13 |          5 |         10 |         28 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\HeroPreviewActor.h                 | C++              |         15 |          4 |          8 |         27 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\ShadowActor.cpp                    | C++              |         13 |          5 |         10 |         28 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\ShadowActor.h                      | C++              |         15 |          4 |          8 |         27 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\StyleBlockActor.cpp                | C++              |         30 |          6 |         12 |         48 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\StyleBlockActor.h                  | C++              |         22 |          4 |         11 |         37 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\StyleGrassActor.cpp                | C++              |         26 |         18 |         11 |         55 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\StyleGrassActor.h                  | C++              |         22 |          4 |         12 |         38 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\StylePickableActor.cpp             | C++              |         39 |          6 |         15 |         60 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Actor\StylePickableActor.h               | C++              |         23 |          4 |         11 |         38 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroAnimInstanceAurora.cpp          | C++              |          1 |          1 |          4 |          6 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroAnimInstanceAurora.h            | C++              |          9 |          4 |          5 |         18 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroAnimInstanceBase.cpp            | C++              |         21 |          3 |          9 |         33 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroAnimInstanceBase.h              | C++              |         19 |          4 |         10 |         33 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroAnimInstanceFengMao.cpp         | C++              |          1 |          1 |          4 |          6 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroAnimInstanceFengMao.h           | C++              |          9 |          4 |          5 |         18 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroAnimInstanceGrux.cpp            | C++              |          1 |          1 |          4 |          6 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroAnimInstanceGrux.h              | C++              |          9 |          4 |          5 |         18 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroAnimInstanceSparrow.cpp         | C++              |          1 |          1 |          4 |          6 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroAnimInstanceSparrow.h           | C++              |          9 |          4 |          5 |         18 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroPreviewAnimInstance.cpp         | C++              |         11 |          1 |          4 |         16 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Anim\HeroPreviewAnimInstance.h           | C++              |         20 |          4 |          9 |         33 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Character\HeroCharacterAurora.cpp        | C++              |        364 |          3 |         66 |        433 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Character\HeroCharacterAurora.h          | C++              |         70 |         11 |         28 |        109 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Character\HeroCharacterBase.cpp          | C++              |        577 |         57 |        140 |        774 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Character\HeroCharacterBase.h            | C++              |        140 |         13 |         52 |        205 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Character\HeroCharacterFengMao.cpp       | C++              |        279 |          3 |         59 |        341 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Character\HeroCharacterFengMao.h         | C++              |         60 |         10 |         25 |         95 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Character\HeroCharacterGrux.cpp          | C++              |        279 |          2 |         67 |        348 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Character\HeroCharacterGrux.h            | C++              |         63 |         11 |         26 |        100 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Character\HeroCharacterSparrow.cpp       | C++              |        366 |          9 |         76 |        451 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Character\HeroCharacterSparrow.h         | C++              |         64 |         11 |         26 |        101 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Component\HeadBarActorComponent.cpp      | C++              |         77 |         10 |         18 |        105 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Component\HeadBarActorComponent.h        | C++              |         31 |          4 |         16 |         51 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Controller\HeroPlayerController.cpp      | C++              |        443 |         81 |         97 |        621 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Controller\HeroPlayerController.h        | C++              |         54 |          4 |         20 |         78 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Instance\MainGameInstance.cpp            | C++              |        505 |        103 |        113 |        721 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Instance\MainGameInstance.h              | C++              |        397 |         74 |        107 |        578 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Mode\ParagonRoyalGameModeBase.cpp        | C++              |         93 |         13 |         27 |        133 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Mode\ParagonRoyalGameModeBase.h          | C++              |         33 |          4 |         15 |         52 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Mode\ParagonRoyalStyleGameModeBase.cpp   | C++              |         65 |         12 |         16 |         93 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\Mode\ParagonRoyalStyleGameModeBase.h     | C++              |         27 |          4 |         13 |         44 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\PB\GameMessage.pb.cc                     | C++              |      7,273 |        819 |      1,155 |      9,247 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\PB\GameMessage.pb.h                      | C++              |      3,542 |        549 |        761 |      4,852 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\PB\GameMessage.proto                     | Protocol Buffers |        200 |          0 |         37 |        237 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\ParagonRoyal.Build.cs                    | C#               |         13 |          6 |         10 |         29 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\ParagonRoyal.cpp                         | C++              |          3 |          1 |          3 |          7 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\ParagonRoyal.h                           | C++              |          2 |          1 |          4 |          7 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\GameUserWidget.cpp                    | C++              |        303 |          4 |         34 |        341 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\GameUserWidget.h                      | C++              |        121 |         11 |         57 |        189 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\LoginUserWidget.cpp                   | C++              |        182 |          4 |         33 |        219 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\LoginUserWidget.h                     | C++              |         61 |          2 |         27 |         90 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\MainUserWidget.cpp                    | C++              |        429 |          4 |         59 |        492 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\MainUserWidget.h                      | C++              |        118 |         14 |         52 |        184 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfBarUserWidget.cpp                 | C++              |         59 |          2 |         16 |         77 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfBarUserWidget.h                   | C++              |         39 |          4 |         17 |         60 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfButtonUserWidget.cpp              | C++              |         48 |          1 |         17 |         66 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfButtonUserWidget.h                | C++              |         40 |          1 |         19 |         60 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfHeadBarUserWidget.cpp             | C++              |          1 |          1 |          4 |          6 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfHeadBarUserWidget.h               | C++              |         16 |          4 |          8 |         28 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfLoadingHeroSlotUserWidget.cpp     | C++              |         14 |          1 |          6 |         21 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfLoadingHeroSlotUserWidget.h       | C++              |         19 |          4 |         10 |         33 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfSelectableUserWidget.cpp          | C++              |         66 |          1 |         19 |         86 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfSelectableUserWidget.h            | C++              |         42 |          1 |         21 |         64 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfShopItemDetailUserWidget.cpp      | C++              |         34 |          1 |          7 |         42 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfShopItemDetailUserWidget.h        | C++              |         28 |          4 |         14 |         46 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfShopItemUserWidget.cpp            | C++              |        110 |         11 |         28 |        149 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfShopItemUserWidget.h              | C++              |         54 |          2 |         29 |         85 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfSkillUserWidget.cpp               | C++              |         73 |          2 |         19 |         94 |
+| c:\Data\Projects\Unreal\ParagonRoyal\Source\ParagonRoyal\UI\SelfSkillUserWidget.h                 | C++              |         41 |          4 |         18 |         63 |
+| Total                                                                                             |                  |     18,367 |      2,150 |      4,140 |     24,657 |
++---------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
